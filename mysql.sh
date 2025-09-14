@@ -36,10 +36,10 @@ CHECK_ROOT
 dnf install mysql-server -y | tee -a $LOG_FILE
 VALIDATE $? "Installing MYSQL server"
 
-dnf enable mysqld | tee -a $LOG_FILE
+systemctl enable mysqld | tee -a $LOG_FILE
 VALIDATE $? "Enabled MYSQL server"
 
-dnf start mysqld | tee -a $LOG_FILE
+systemctl start mysqld | tee -a $LOG_FILE
 VALIDATE $? "Started MYSQL server"
 
 mysql -h mysql.awspractice.shop -u root -pExpenseApp@1 -e 'show databases;' | tee -a $LOG_FILE
