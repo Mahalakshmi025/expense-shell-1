@@ -1,8 +1,9 @@
 #!/bin/bash
 
-LOGS_FOLDER="/var/log/shell-script"
+LOGS_FOLDER="/var/log/expense"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-TIMESTAMP="$LOGS_FOLDER/$SCRIPT_NAME-$TIMESTAMO.log"
+TIMESTAMP=$(date +%Y-%m-%D-%H-%M-%S)
+LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME-$TIMESTAMO.log"
 
 mkdir -p $LOGS_FOLDER
 
