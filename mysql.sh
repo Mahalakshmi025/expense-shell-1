@@ -23,9 +23,9 @@ CHECK_ROOT(){
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-       echo -e "$2 is....$R FAILED $N" .&>>$LOG_FILE
+       echo -e "$2 is....$R FAILED $N" &>>$LOG_FILE
     else
-       echo -e "$2 is....$G SUCCESS $N" .&>>$LOG_FILE
+       echo -e "$2 is....$G SUCCESS $N" &>>$LOG_FILE
     fi
 }
 
@@ -36,7 +36,7 @@ CHECK_ROOT
 dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "Installing MYSQL server"
 
-dnf enable mysqld &>>$LOG_FILE
+dnf enable mysqld &>> "$LOG_FILE"
 VALIDATE $? "Enabled MYSQL server"
 
 dnf start mysqld &>>$LOG_FILE
