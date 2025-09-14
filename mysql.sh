@@ -29,25 +29,25 @@ VALIDATE(){
     fi
 }
 
-echo "Script started executing at: $(date)" &>>$LOG_FILE #| tee -a $LOG_FILE
+echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
 CHECK_ROOT
 
-dnf install mysql-server -y &>>$LOG_FILE
+dnf install mysql-server -y | tee -a $LOG_FILE
 VALIDATE $? "Installing MYSQL server"
 
-dnf enable mysqld &>> "$LOG_FILE"
+dnf enable mysqld | tee -a $LOG_FILE
 VALIDATE $? "Enabled MYSQL server"
 
-dnf start mysqld &>>$LOG_FILE
+dnf start mysqld | tee -a $LOG_FILE
 VALIDATE $? "Started MYSQL server"
 
-mysql -h mysql.awspractice.shop -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
+mysql -h mysql.awspractice.shop -u root -pExpenseApp@1 -e 'show databases;' | tee -a $LOG_FILE
 if [ $? -ne 0 ]
 then
-   echo -e "MYSQL password is not setup, setting now ExpenseApp@1" &>>LOG_FILE
+   echo -e "MYSQL password is not setup, setting now ExpenseApp@1" | tee -a $LOG_FILE
    mysql_secure_installation --set-root-pass ExpenseApp@1
    VALIDATE $? "Setting up root password" 
 else 
-   echo -e "MYSQL password is already set up....$Y skipping $N" &>>LOG_FILE
+   echo -e "MYSQL password is already set up....$Y skipping $N" | tee -a $LOG_FILE
 fi
