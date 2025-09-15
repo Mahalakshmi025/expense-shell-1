@@ -29,5 +29,32 @@ VALIDATE(){
     else
         echo -e "$2 is... $G SUCCESS $N" | tee -a $LOG_FILE
     fi
-
 }
+
+echo "Script started executing at: $(date)" | tee -a $LOG_FILE
+
+CHECK_ROOT
+
+dnf install nginx -y &>>$LOG_FILE
+VALIDATE $? "Installing nginx"
+
+systemctl enable nginx &>>$LOG_FILE
+VALIDATE $? "enabling nginx"
+
+systemctl start nginx &>>$LOG_FILE
+VALIDATE $? "Starting nginx"
+
+#removing default content
+rm -rf /usr/share/nginx/html/*
+
+
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-
+v2.zip &>>$LOG_FILE
+VALIDATE $? "Downloading frontend code"
+
+cd /usr/share/nginx/html
+unzip /tmp/frontend.zip &>>$LOG_FILE
+VALIDATE $? "Extract the frontend code"
+
+systemctl restart nginx &>>$LOG_FILE
+VALIDATE $? "Restating nginx"
