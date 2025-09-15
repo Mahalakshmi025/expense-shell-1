@@ -34,21 +34,21 @@ echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
 CHECK_ROOT
 
-dnf install mysql-server -y | tee -a $LOG_FILE
+dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "Installing MYSQL server"
 
-systemctl enable mysqld | tee -a $LOG_FILE
+systemctl enable mysqld &>>$LOG_FILE
 VALIDATE $? "Enabled MYSQL server"
 
-systemctl start mysqld | tee -a $LOG_FILE
+systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "Started MYSQL server"
 
 # mysql -h mysql.awspractice.shop -u root -pExpenseApp@1 -e 'show databases;' | tee -a $LOG_FILE
 # if [ $? -ne 0 ]
 # then
 #    echo -e "MYSQL password is not setup, setting now ExpenseApp@1" | tee -a $LOG_FILE
-   mysql_secure_installation --set-root-pass ExpenseApp@1
-#    VALIDATE $? "Setting up root password" 
+   mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+   VALIDATE $? "Setting up root password" 
 # else 
 #    echo -e "MYSQL password is already set up....$Y skipping $N" | tee -a $LOG_FILE
 # fi
