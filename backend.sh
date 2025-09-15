@@ -43,15 +43,15 @@ VALIDATE $? "Enable nodejs:20"
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "Install nodejs"
 
-# id expense &>>$LOG_FILE
-# if [ $? -ne 0 ]
-# then
-#     echo -e "expense user not exists... $G Creating $N"
+id expense &>>$LOG_FILE
+if [ $? -ne 0 ]
+then
+    echo -e "expense user not exists... $G Creating $N"
     useradd expense &>>$LOG_FILE
     VALIDATE $? "Creating expense user"
-# else
-#     echo -e "expense user already exists...$Y SKIPPING $N"
-# fi
+else
+    echo -e "expense user already exists...$Y SKIPPING $N"
+fi
 
 # mkdir -p /app
 # VALIDATE $? "Creating /app folder"
