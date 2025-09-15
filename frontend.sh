@@ -48,8 +48,7 @@ VALIDATE $? "Starting nginx"
 rm -rf /usr/share/nginx/html/*
 
 
-curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-
-v2.zip &>>$LOG_FILE
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE
 VALIDATE $? "Downloading frontend code"
 
 cd /usr/share/nginx/html
