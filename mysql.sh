@@ -43,12 +43,12 @@ VALIDATE $? "Enabled MYSQL server"
 systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "Started MYSQL server"
 
-# mysql -h mysql.awspractice.shop -u root -pExpenseApp@1 -e 'show databases;' | tee -a $LOG_FILE
-# if [ $? -ne 0 ]
-# then
-#    echo -e "MYSQL password is not setup, setting now ExpenseApp@1" | tee -a $LOG_FILE
+mysql -h mysql.awspractice.shop -u root -pExpenseApp@1 -e 'show databases;' | tee -a $LOG_FILE
+if [ $? -ne 0 ]
+then
+   echo -e "MYSQL password is not setup, setting now ExpenseApp@1" | tee -a $LOG_FILE
    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
    VALIDATE $? "Setting up root password" 
-# else 
-#    echo -e "MYSQL password is already set up....$Y skipping $N" | tee -a $LOG_FILE
-# fi
+else 
+   echo -e "MYSQL password is already set up....$Y skipping $N" | tee -a $LOG_FILE
+fi
