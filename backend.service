@@ -3,10 +3,7 @@ Description = Backend Service
 
 [Service]
 User=expense
-Environment=DB_HOST=mysql.awsparctice.shop
-Environment=DB_USER=root
-Environment=DB_PASS=ExpenseApp@1
-Environment=DB_NAME=transactions
+Environment=DB_HOST="mysql.awsparctice.shop"
 ExecStart=/bin/node /app/index.js
 SyslogIdentifier=backend
 
